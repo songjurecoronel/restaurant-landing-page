@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>La Picantería — Chiclayo</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --sand: #F5EDD8;
+    --sand-dark: #E8D9B5;
+    --terracotta: #C4572A;
+    --terracotta-dark: #A3441E;
+    --ocean: #1A4D6E;
+    --cream: #FDFAF3;
+    --text-dark: #1C1410;
+    --text-mid: #5C4A38;
+    --text-light: #9C8060;
+  }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'DM Sans', sans-serif; background: var(--cream); color: var(--text-dark); overflow-x: hidden; }
+
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1rem 2.5rem;
+    background: rgba(253,250,243,0.94);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--sand-dark);
+  }
+  .nav-logo { font-family: 'Playfair Display', serif; font-size: 1.4rem; color: var(--terracotta); }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a { text-decoration: none; font-size: 0.875rem; font-weight: 500; color: var(--text-mid); transition: color 0.2s; }
+  .nav-links a:hover { color: var(--terracotta); }
+  .nav-cta { background: var(--terracotta); color: white !important; padding: 0.45rem 1.1rem; border-radius: 100px; }
+  .nav-cta:hover { background: var(--terracotta-dark) !important; }
+
+  .hero { min-height: 100vh; display: grid; grid-template-columns: 1fr 1fr; padding-top: 68px; }
+  .hero-left { display: flex; flex-direction: column; justify-content: center; padding: 4rem 3rem 4rem 4.5rem; }
+  .hero-tag {
+    display: inline-block; background: var(--sand); color: var(--terracotta);
+    font-size: 0.72rem; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase;
+    padding: 0.35rem 0.9rem; border-radius: 100px; margin-bottom: 1.5rem; width: fit-content;
+  }
+  .hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(2.6rem, 4.5vw, 4rem); line-height: 1.1; margin-bottom: 1.2rem; }
+  .hero h1 em { font-style: italic; color: var(--terracotta); }
+  .hero-sub { font-size: 1rem; color: var(--text-mid); line-height: 1.75; max-width: 400px; margin-bottom: 2.5rem; }
+  .hero-btns { display: flex; gap: 1rem; }
+  .btn-primary { background: var(--terracotta); color: white; padding: 0.85rem 2rem; border-radius: 100px; text-decoration: none; font-weight: 500; font-size: 0.9rem; transition: background 0.2s, transform 0.15s; }
+  .btn-primary:hover { background: var(--terracotta-dark); transform: translateY(-1px); }
+  .btn-secondary { border: 1.5px solid var(--sand-dark); color: var(--text-mid); padding: 0.85rem 2rem; border-radius: 100px; text-decoration: none; font-weight: 500; font-size: 0.9rem; transition: border-color 0.2s, color 0.2s; }
+  .btn-secondary:hover { border-color: var(--terracotta); color: var(--terracotta); }
+  .hero-stats { display: flex; gap: 2.5rem; margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--sand-dark); }
+  .stat-num { font-family: 'Playfair Display', serif; font-size: 1.9rem; color: var(--terracotta); font-weight: 700; }
+  .stat-label { font-size: 0.78rem; color: var(--text-light); margin-top: 2px; }
+
+  .hero-right { position: relative; overflow: hidden; background: var(--sand); }
+  .hero-right img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .hero-badge {
+    position: absolute; bottom: 2rem; left: 2rem;
+    background: white; border-radius: 14px; padding: 1rem 1.25rem;
+    display: flex; align-items: center; gap: 0.75rem;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.13);
+  }
+  .badge-dot { width: 40px; height: 40px; border-radius: 50%; background: var(--terracotta); flex-shrink: 0; }
+  .badge-text { font-size: 0.78rem; color: var(--text-mid); }
+  .badge-text strong { display: block; font-size: 0.92rem; color: var(--text-dark); margin-bottom: 1px; }
+
+  .menu-section { padding: 6rem 4.5rem; }
+  .section-header { text-align: center; margin-bottom: 3.5rem; }
+  .section-tag { display: inline-block; color: var(--terracotta); font-size: 0.72rem; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 1rem; }
+  .section-title { font-family: 'Playfair Display', serif; font-size: clamp(2rem, 3.5vw, 2.8rem); line-height: 1.2; }
+  .section-title em { font-style: italic; color: var(--terracotta); }
+
+  .menu-tabs { display: flex; gap: 0.5rem; justify-content: center; margin-bottom: 2.5rem; }
+  .tab { padding: 0.5rem 1.25rem; border-radius: 100px; border: 1.5px solid var(--sand-dark); background: transparent; color: var(--text-mid); font-size: 0.875rem; font-weight: 500; cursor: pointer; transition: all 0.2s; font-family: 'DM Sans', sans-serif; }
+  .tab.active, .tab:hover { background: var(--terracotta); border-color: var(--terracotta); color: white; }
+
+  .menu-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; max-width: 1100px; margin: 0 auto; }
+  .menu-card { background: white; border-radius: 20px; overflow: hidden; border: 1px solid var(--sand-dark); transition: transform 0.2s, box-shadow 0.2s; }
+  .menu-card:hover { transform: translateY(-4px); box-shadow: 0 16px 40px rgba(0,0,0,0.07); }
+  .menu-card-img { width: 100%; height: 200px; object-fit: cover; display: block; background: var(--sand); }
+  .menu-card-body { padding: 1.25rem; }
+  .menu-card-body h3 { font-family: 'Playfair Display', serif; font-size: 1.1rem; margin-bottom: 0.4rem; }
+  .menu-card-body p { font-size: 0.83rem; color: var(--text-light); line-height: 1.6; margin-bottom: 1rem; }
+  .menu-card-footer { display: flex; align-items: center; justify-content: space-between; }
+  .price { font-size: 1.05rem; font-weight: 500; color: var(--terracotta); }
+  .badge-pop { display: inline-block; background: var(--sand); color: var(--terracotta); font-size: 0.62rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; padding: 0.2rem 0.6rem; border-radius: 100px; margin-bottom: 0.5rem; }
+  .add-btn { background: var(--sand); border: none; border-radius: 100px; width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 1.1rem; color: var(--terracotta); transition: background 0.2s; line-height: 1; }
+  .add-btn:hover { background: var(--terracotta); color: white; }
+
+  .about-section { padding: 6rem 4.5rem; background: var(--sand); display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; }
+  .about-img-wrap { border-radius: 20px; overflow: hidden; aspect-ratio: 4/5; }
+  .about-img-wrap img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .about-text h2 { font-family: 'Playfair Display', serif; font-size: clamp(1.8rem, 3vw, 2.6rem); line-height: 1.2; margin-bottom: 1.25rem; }
+  .about-text h2 em { font-style: italic; color: var(--terracotta); }
+  .about-text p { color: var(--text-mid); line-height: 1.8; margin-bottom: 1rem; font-size: 0.93rem; }
+  .features { display: flex; flex-direction: column; gap: 1rem; margin-top: 2rem; }
+  .feature { display: flex; align-items: flex-start; gap: 1rem; }
+  .feature-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--terracotta); margin-top: 7px; flex-shrink: 0; }
+  .feature p { font-size: 0.88rem; color: var(--text-mid); line-height: 1.6; }
+  .feature strong { color: var(--text-dark); display: block; font-size: 0.93rem; margin-bottom: 2px; }
+
+  .cta-section { padding: 6rem 4.5rem; background: var(--ocean); text-align: center; }
+  .cta-section h2 { font-family: 'Playfair Display', serif; font-size: clamp(2rem, 4vw, 3rem); color: white; line-height: 1.2; margin-bottom: 1rem; }
+  .cta-section h2 em { font-style: italic; color: var(--sand); }
+  .cta-section p { color: rgba(255,255,255,0.65); font-size: 1rem; margin-bottom: 2.5rem; }
+  .cta-btns { display: flex; gap: 1rem; justify-content: center; }
+  .btn-white { background: white; color: var(--terracotta); padding: 0.85rem 2rem; border-radius: 100px; text-decoration: none; font-weight: 500; font-size: 0.9rem; transition: transform 0.15s; }
+  .btn-white:hover { transform: translateY(-2px); }
+  .btn-outline-white { border: 1.5px solid rgba(255,255,255,0.35); color: white; padding: 0.85rem 2rem; border-radius: 100px; text-decoration: none; font-weight: 500; font-size: 0.9rem; transition: border-color 0.2s; }
+  .btn-outline-white:hover { border-color: white; }
+
+  .info-section { padding: 4rem 4.5rem; display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; background: var(--text-dark); }
+  .info-card h4 { font-family: 'Playfair Display', serif; font-size: 0.95rem; color: var(--sand); margin-bottom: 0.75rem; }
+  .info-card p, .info-card a { font-size: 0.85rem; color: rgba(255,255,255,0.5); line-height: 1.9; text-decoration: none; display: block; }
+  .info-card a:hover { color: var(--sand); }
+  .footer-copy { background: var(--text-dark); border-top: 1px solid rgba(255,255,255,0.06); text-align: center; padding: 1.25rem; font-size: 0.78rem; color: rgba(255,255,255,0.25); }
+  .project-note { background: var(--sand); border-top: 1px solid var(--sand-dark); text-align: center; padding: 0.85rem; font-size: 0.78rem; color: var(--text-light); letter-spacing: 0.04em; }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">La Picantería</div>
+  <ul class="nav-links">
+    <li><a href="#menu">Carta</a></li>
+    <li><a href="#nosotros">Nosotros</a></li>
+    <li><a href="#contacto">Contacto</a></li>
+    <li><a href="#reservas" class="nav-cta">Reservar mesa</a></li>
+  </ul>
+</nav>
+
+<section class="hero">
+  <div class="hero-left">
+    <span class="hero-tag">Monsefú · Chiclayo · Desde 1998</span>
+    <h1>Sabor <em>norteño</em> de verdad</h1>
+    <p class="hero-sub">Ceviche fresco, cabrito al horno y chicha de jora artesanal. Recetas de la abuela, servidas con el corazón.</p>
+    <div class="hero-btns">
+      <a href="#menu" class="btn-primary">Ver la carta</a>
+      <a href="#reservas" class="btn-secondary">Reservar mesa</a>
+    </div>
+    <div class="hero-stats">
+      <div><div class="stat-num">26</div><div class="stat-label">Años de sabor</div></div>
+      <div><div class="stat-num">4.9</div><div class="stat-label">Calificación</div></div>
+      <div><div class="stat-num">+40</div><div class="stat-label">Platos en carta</div></div>
+    </div>
+  </div>
+  <div class="hero-right">
+    <img src="https://imgs.search.brave.com/zEyv6u9ELS02c7qDpCEwe66B9rzkvFjQ8U5yIAsgSUQ/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly9tZWRp/YS5nZXR0eWltYWdl/cy5jb20vaWQvMTQ2/NzA3MjE2MC9waG90/by9mcmVzaC1jZXZp/Y2hlLXdpdGgtcmF3/LWZpc2gtc2VydmVk/LWF0LXBlcnV2aWFu/LXJlc3RhdXJhbnQt/aGlnaC1hbmdsZS12/aWV3LmpwZz9zPTYx/Mng2MTImdz0wJms9/MjAmYz03QUh3TV82/VFZmLVNib1NJeVVS/NENqcFNueTgtdlll/bmRSR3plcGpLczBZ/PQ" alt="Ceviche fresco norteño" />
+    <div class="hero-badge">
+      <div class="badge-dot"></div>
+      <div class="badge-text">
+        <strong>Mejor ceviche 2023</strong>
+        Guía Gastronómica Norte
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="menu-section" id="menu">
+  <div class="section-header">
+    <div class="section-tag">Nuestra carta</div>
+    <h2 class="section-title">Platos que <em>enamoran</em></h2>
+  </div>
+  <div class="menu-tabs">
+    <button class="tab active">Todo</button>
+    <button class="tab">Ceviches</button>
+    <button class="tab">Segundos</button>
+    <button class="tab">Bebidas</button>
+  </div>
+  <div class="menu-grid">
+    <div class="menu-card">
+      <img class="menu-card-img" src="https://wallpapers.com/images/high/ceviche-with-fancy-banana-plating-i5za598j17isbrtr.webp" alt="Ceviche clásico" />
+      <div class="menu-card-body">
+        <span class="badge-pop">El más pedido</span>
+        <h3>Ceviche clásico</h3>
+        <p>Corvina fresca, limón sutil, cebolla roja, culantro y ají limo. Con choclo y cancha serrana.</p>
+        <div class="menu-card-footer"><span class="price">S/ 32</span><button class="add-btn">+</button></div>
+      </div>
+    </div>
+    <div class="menu-card">
+      <img class="menu-card-img" src="https://imgs.search.brave.com/E3dAmBZAhvKjq_sooZL8QkX-8Zg4razYR_B3prxih9k/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly9wZXJ1/ZXhwbG9yZXJldXNk/ZXYuYmxvYi5jb3Jl/LndpbmRvd3MubmV0/L21lZGlhL2FydGlj/bGVzL3NlY28tZGUt/Y2Ficml0by1wbGF0/by1lbWJsZW1hdGlj/by1kZWwtbm9ydGUt/ZGUtcGVydS9zZWNv/LWRlLWNhYnJpdG8t/cGxhdG8tZW1ibGVt/YXRpY28tZGVsLW5v/cnRlLWRlLXBlcnUu/anBn" alt="Cabrito a la norteña" />
+      <div class="menu-card-body">
+        <span class="badge-pop">Especialidad</span>
+        <h3>Cabrito a la norteña</h3>
+        <p>Cabrito marinado en chicha de jora, especias regionales y culantro fresco. Con frijoles y arroz.</p>
+        <div class="menu-card-footer"><span class="price">S/ 45</span><button class="add-btn">+</button></div>
+      </div>
+    </div>
+    <div class="menu-card">
+      <img class="menu-card-img" src="https://imgs.search.brave.com/5WvIFh5H8cKk7c5ClCGzm7SfIx_xqy682aWNz0_wBbk/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly9tZWRp/YS5pc3RvY2twaG90/by5jb20vaWQvMTEy/ODAzNDE0Ni9lcy9m/b3RvL3BlcnVhbmEt/YXJyb3otY29uLWxl/Y2hlLXBvc3RyZS5q/cGc_cz02MTJ4NjEy/Jnc9MCZrPTIwJmM9/TkhFMXlCblEybGlZ/ZjBULUFWWDNRakJO/NHl2SU5NWnFNZmd5/clBncUs1OD0" alt="Arroz con leche" />
+      <div class="menu-card-body">
+        <h3>Arroz con leche norteño</h3>
+        <p>Postre tradicional con canela, clavo de olor y leche fresca de Lambayeque. Receta familiar.</p>
+        <div class="menu-card-footer"><span class="price">S/ 12</span><button class="add-btn">+</button></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="about-section" id="nosotros">
+  <div class="about-img-wrap">
+    <img src="https://imgs.search.brave.com/47G8bYR39SJPeoT6ZX1cLAlplUONuQneqKRFm5yYEhY/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly9tZWRp/YS5pc3RvY2twaG90/by5jb20vaWQvMTQ4/NTg3NzA3Mi9lcy9m/b3RvL2Nvbmp1bnRv/LWRlLWNvbG9yaWRh/cy1yZWNldGFzLWRl/LWdhc3Ryb25vbSVD/MyVBRGEtcGVydWFu/YS1jb24tcG9sbG8t/YXNhZG8tbG9zLWRv/bWluZ29zLW11Y2hh/cy1wYXBhcy5qcGc_/cz02MTJ4NjEyJnc9/MCZrPTIwJmM9RGxh/WHo4ZGdDck5mTUxZ/eDdrOWxZZ2FQV0FL/RkZyZzVFd3QwdnpE/eTJDRT0" alt="Interior del restaurante" />
+  </div>
+  <div class="about-text">
+    <div class="section-tag">Nuestra historia</div>
+    <h2>Cocina con <em>alma</em> norteña</h2>
+    <p>Desde 1998, La Picantería es el lugar donde Monsefú se sienta a comer bien. Lo que comenzó como una huarique familiar hoy es referencia de la gastronomía lambayecana.</p>
+    <p>Cada plato lleva el sabor de nuestra tierra: ingredientes locales, técnicas de siempre y el cariño de quien cocina para los suyos.</p>
+    <div class="features">
+      <div class="feature"><div class="feature-dot"></div><p><strong>Ingredientes 100% locales</strong>Productores de Monsefú, Ferreñafe y Lambayeque.</p></div>
+      <div class="feature"><div class="feature-dot"></div><p><strong>Recetas de tres generaciones</strong>Preservamos la tradición culinaria norteña sin comprometerla.</p></div>
+      <div class="feature"><div class="feature-dot"></div><p><strong>Atención personalizada</strong>Mesa para 2 o reunión de 40 personas, siempre con el mismo cuidado.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="cta-section" id="reservas">
+  <h2>¿Listo para <em>comer bien?</em></h2>
+  <p>Reserva tu mesa y disfruta la mejor cocina norteña de Chiclayo.</p>
+  <div class="cta-btns">
+    <a href="https://wa.me/51999999999" class="btn-white">WhatsApp</a>
+    <a href="tel:+51999999999" class="btn-outline-white">Llamar ahora</a>
+  </div>
+</section>
+
+<div class="info-section" id="contacto">
+  <div class="info-card">
+    <h4>Ubicación</h4>
+    <p>Jr. Francisco Cabrera 245<br>Monsefú, Chiclayo<br>Lambayeque, Perú</p>
+  </div>
+  <div class="info-card">
+    <h4>Horario</h4>
+    <p>Lunes a viernes: 12pm – 9pm</p>
+    <p>Sábado y domingo: 11am – 10pm</p>
+  </div>
+  <div class="info-card">
+    <h4>Contacto</h4>
+    <a href="tel:+51999999999">+51 999 999 999</a>
+    <a href="mailto:lapicanteria@gmail.com">lapicanteria@email.com</a>
+    <a href="#">Instagram · Facebook</a>
+  </div>
+</div>
+<div class="footer-copy">© 2026 La Picantería — Monsefú, Chiclayo. Todos los derechos reservados.</div>
+<div class="project-note">Proyecto demo · Landing page para restaurante norteño · Desarrollado por Song Ju Reluz Coronel</div>
+
+</body>
+<script>
+  document.querySelectorAll('.tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+      document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+    });
+  });
+</script>
+</html>
